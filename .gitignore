@@ -1,0 +1,6 @@
+/tasks/*
+
+!/tasks/*sample.txt
+!/tasks/
+
+.vscode/
