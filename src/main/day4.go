@@ -53,7 +53,7 @@ func part2() {
 }
 
 func populate_array() {
-	file, err := os.Open("tasks/day4.txt")
+	file, err := os.Open("tasks/day4_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 	}

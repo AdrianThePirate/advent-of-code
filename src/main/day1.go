@@ -8,8 +8,6 @@ import (
 	"sort"
 )
 
-// var left = []int{3, 4, 2, 1, 3, 3}
-// var right = []int{4, 3, 5, 3, 9, 3}
 var left, right []int
 
 func main() {
@@ -42,7 +40,7 @@ func part2() {
 }
 
 func populate_list() {
-	file, err := os.Open("tasks/day1.txt")
+	file, err := os.Open("tasks/day1_sample.txt")
 	if err != nil {
 		fmt.Println("Error:", err)
 		return

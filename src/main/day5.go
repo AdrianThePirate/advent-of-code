@@ -71,7 +71,7 @@ func part2(){
 }
 
 func import_data(){
-	file, err := os.Open("tasks/day5.txt")
+	file, err := os.Open("tasks/day5_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 		return

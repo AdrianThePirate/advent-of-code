@@ -89,7 +89,7 @@ func part2() {
 }
 
 func populate_list() {
-	file, err := os.Open("tasks/day2.txt")
+	file, err := os.Open("tasks/day2_sample.txt")
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
