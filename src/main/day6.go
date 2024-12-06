@@ -28,7 +28,7 @@ func part1() {
 func part2() {
 	for y := range board {
 		for x := range board[y] {
-			if adventutils.IsInSet(board[y][x], []rune{'|','-','+', 'v'}) { obstructions_pos = append(obstructions_pos, adventutils.Vec2[int]{X: x, Y: y}) }
+			if slices.Contains([]rune{'|','-','+', 'v'}, board[y][x]) { obstructions_pos = append(obstructions_pos, adventutils.Vec2[int]{X: x, Y: y}) }
 		}
 	}
 
@@ -61,7 +61,7 @@ func simulate() (bool, int) {
 			next_pos := adventutils.Vec2[int]{X: guard_pos.X, Y: guard_pos.Y-1}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], '^') { return true, len(walks)+1 }
-			if adventutils.IsInSet(next, []rune{'#', 'O'}) {
+			if slices.Contains([]rune{'#', 'O'}, next) {
 				board[guard_pos.Y][guard_pos.X] = '>'
 				turned = true
 			} else {
@@ -73,7 +73,7 @@ func simulate() (bool, int) {
 			next_pos := adventutils.Vec2[int]{X: guard_pos.X-1, Y: guard_pos.Y}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], '<') { return true, len(walks)+1 }
-			if adventutils.IsInSet(next, []rune{'#', 'O'}) {
+			if slices.Contains([]rune{'#', 'O'}, next) {
 				board[guard_pos.Y][guard_pos.X] = '^'
 				turned = true
 			} else {
@@ -85,7 +85,7 @@ func simulate() (bool, int) {
 			next_pos := adventutils.Vec2[int]{X: guard_pos.X+1, Y: guard_pos.Y}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], '>') { return true, len(walks)+1 }
-			if adventutils.IsInSet(next, []rune{'#', 'O'}) {
+			if slices.Contains([]rune{'#', 'O'}, next) {
 				board[guard_pos.Y][guard_pos.X] = 'v'
 				turned = true
 			} else {
@@ -97,7 +97,7 @@ func simulate() (bool, int) {
 			next_pos := adventutils.Vec2[int]{X: guard_pos.X, Y: guard_pos.Y+1}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], 'v') { return true, len(walks)+1 }
-			if adventutils.IsInSet(next, []rune{'#', 'O'}) {
+			if slices.Contains([]rune{'#', 'O'}, next) {
 				board[guard_pos.Y][guard_pos.X] = '<'
 				turned = true
 			} else {
@@ -115,12 +115,12 @@ func move_guard(pos adventutils.Vec2[int], dir rune, turned *bool) {
 	} else if crossing {
 		board[guard_pos.Y][guard_pos.X] = '+'
 		crossing = false
-	} else if adventutils.IsInSet(dir, []rune{'<', '>'}) {
+	} else if slices.Contains([]rune{'<', '>'}, dir) {
 		board[guard_pos.Y][guard_pos.X] = '-'
 	} else {
 		board[guard_pos.Y][guard_pos.X] = '|'
 	}
-	if adventutils.IsInSet(board[pos.Y][pos.X], []rune{'|','-'}) { crossing = true }
+	if slices.Contains([]rune{'|','-'}, board[pos.Y][pos.X]) { crossing = true }
 	board[pos.Y][pos.X] = dir
 	guard_pos = pos
 }
@@ -142,7 +142,7 @@ func populate_array() {
 	var guard_found = false
 	for y, line := range board {
 		for x, val := range line {
-			if adventutils.IsInSet(val, []rune{'^', '<', '>', 'v'}) {
+			if slices.Contains([]rune{'^', '<', '>', 'v'}, val) {
 				guard_pos.X = x
 				guard_pos.Y = y
 				guard_found = true

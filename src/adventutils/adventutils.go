@@ -27,12 +27,3 @@ type Numeric interface {
 type Vec2[T Numeric] struct {
 	X, Y T
 }
-
-func IsInSet[T comparable](val T, set []T) bool {
-	for _, v := range set {
-		if val == v {
-			return true
-		}
-	}
-	return false
-}
