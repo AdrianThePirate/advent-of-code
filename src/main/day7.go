@@ -13,11 +13,15 @@ var cali map[int][]int
 func main() {
 	cali = make(map[int][]int)
 	populate_map()
-	part1()
+
+	operations := []rune{'*', '+'}
+	task_run(operations)
+
+	operations = []rune{'*', '+', '|'}
+	task_run(operations)
 }
 
-func part1() {
-	operations := []rune{'*', '+'}
+func task_run(operations []rune) {
 	var result int
 	for key, vals := range cali{
 		opts := opr_opts(operations, len(vals)-1)
@@ -54,6 +58,12 @@ func solvable(goal int, opts [][]rune, nums []int) bool {
 				sum *= nums[i+1]
 			case '+':
 				sum += nums[i+1]
+			case '|':
+				val, err :=  strconv.Atoi(strconv.Itoa(sum)+strconv.Itoa(nums[i+1]))
+				if err != nil {
+					fmt.Println(err)
+				}
+				sum = val
 			}
 		}
 		if sum == goal { return true }
