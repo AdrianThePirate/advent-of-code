@@ -69,13 +69,22 @@ func (v1 Vec2[T]) Div(v2 Vec2[T]) Vec2[T] {
 }
 
 
+func (v1 Vec2[T]) Magn() float64 {
+	return math.Sqrt(float64(v1.Dot(v1)))
+}
+
+func (v1 Vec2[T]) DistanceTo(v2 Vec2[T]) float64 {
+	dist := v2.Sub(v1)
+	return math.Sqrt(float64(dist.Dot(dist)))
+}
+
 func (v1 Vec2[T]) Len(arg interface{}) float64 {
 	switch v2 := arg.(type){
 	case nil:
 		return math.Sqrt(float64(v1.Dot(v1)))
 	case Vec2[T]:
-		if v1 == v2 { return 0 }
-		return math.Sqrt(float64(v1.Dot(v2)))
+		vector := v2.Sub(v1)
+		return math.Sqrt(float64(vector.Dot(vector)))
 	default:
 		panic("unsupported type")
 	}

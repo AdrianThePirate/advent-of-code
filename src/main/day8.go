@@ -15,7 +15,7 @@ func main() {
 	populateMap()
 	
 	fmt.Println("Result", len(findAnt()))
-	fmt.Println("Result", len(fintAntReson()))
+	fmt.Println("Result", len(findAntReson()))
 }
 
 func findAnt() map[adventutils.Vec2[int]]int {
@@ -24,7 +24,7 @@ func findAnt() map[adventutils.Vec2[int]]int {
 	for _, poss := range antPos {
 		for _, loc := range poss {
 			for _, pos := range poss {
-				if pos.Len(loc) == 0 { continue }
+				if loc.Len(pos) == 0 { continue }
 				antPos := pos.Add(pos.Sub(loc))
 				if antPos.X >= 0 && antPos.X < maxX && antPos.Y >= 0 && antPos.Y < maxY { foundAnt[antPos]++ }
 			}
@@ -33,13 +33,13 @@ func findAnt() map[adventutils.Vec2[int]]int {
 	return foundAnt
 }
 
-func fintAntReson() map[adventutils.Vec2[int]]int {
+func findAntReson() map[adventutils.Vec2[int]]int {
 	var foundAnt map[adventutils.Vec2[int]]int
 	foundAnt = make(map[adventutils.Vec2[int]]int)
 	for _, poss := range antPos {
 		for _, loc := range poss {
 			for _, pos := range poss {
-				if pos.Len(loc) == 0 { continue }
+				if loc.Len(pos) == 0 { continue }
 				vector := pos.Sub(loc)
 				var i int = 1
 				for {
