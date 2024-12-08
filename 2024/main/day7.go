@@ -74,7 +74,7 @@ func solvable(goal int, opts [][]rune, nums []int) bool {
 }
 
 func populateMap() {
-	file, err := os.Open("tasks/day7_sample.txt")
+	file, err := os.Open("2024/tasks/day7_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 	}

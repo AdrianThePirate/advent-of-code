@@ -1,7 +1,7 @@
 package main
 
 import (
-	"adventutils"
+	"advent/adventutils"
 	"bufio"
 	"fmt"
 	"os"
@@ -71,7 +71,7 @@ func part2(){
 }
 
 func importData(){
-	file, err := os.Open("tasks/day5_sample.txt")
+	file, err := os.Open("2024/tasks/day5_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 		return

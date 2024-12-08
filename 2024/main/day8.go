@@ -1,7 +1,7 @@
 package main
 
 import (
-	"adventutils"
+	"advent/adventutils"
 	"bufio"
 	"fmt"
 	"os"
@@ -38,7 +38,6 @@ func findAntReson() map[adventutils.Vec2[int]]int {
 	foundAnt = make(map[adventutils.Vec2[int]]int)
 	for _, poss := range antPos {
 		for _, loc := range poss {
-			for _, pos := range poss {
 				if loc.Len(pos) == 0 { continue }
 				vector := pos.Sub(loc)
 				var i int = 1
@@ -58,7 +57,7 @@ func findAntReson() map[adventutils.Vec2[int]]int {
 }
 
 func populateMap() {
-	file, err := os.Open("tasks/day8_sample.txt")
+	file, err := os.Open("2024/tasks/day8_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 	}

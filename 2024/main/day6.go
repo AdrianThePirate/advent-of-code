@@ -1,7 +1,7 @@
 package main
 
 import (
-	"adventutils"
+	"advent/adventutils"
 	"bufio"
 	"fmt"
 	"os"
@@ -126,7 +126,7 @@ func moveGuard(pos adventutils.Vec2[int], dir rune, turned *bool) {
 }
 
 func populateArray() {
-	file, err := os.Open("tasks/day6_sample.txt")
+	file, err := os.Open("2024/tasks/day6_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 	}

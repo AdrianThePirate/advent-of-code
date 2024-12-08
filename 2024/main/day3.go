@@ -9,7 +9,7 @@ import (
 var mem string
 
 func main() {
-	data, err := os.ReadFile("tasks/day3_sample.txt")
+	data, err := os.ReadFile("2024/tasks/day3_sample.txt")
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
