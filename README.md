@@ -14,7 +14,7 @@ Note my personal challenge data is not included in this repo, only the samples f
 | :-: | :----: | :----: |
 |  1  |   🌟   |   🌟   |
 |  2  |   🌟   |   🌟   |
-|  3  |        |        |
+|  3  |   🌟   |   🌟   |
 |  4  |        |        |
 |  5  |        |        |
 |  6  |        |        |

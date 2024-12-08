@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	list, err := getList("tasks/day2.txt")
+	list, err := getList("2015/tasks/day2.txt")
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	data, err := os.ReadFile("tasks/day1.txt")
+	data, err := os.ReadFile("2015/tasks/day1.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
