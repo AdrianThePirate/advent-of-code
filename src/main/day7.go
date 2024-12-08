@@ -14,9 +14,11 @@ func main() {
 	cali = make(map[int][]int)
 	populate_map()
 
+	//part 1
 	operations := []rune{'*', '+'}
 	task_run(operations)
 
+	//part 2
 	operations = []rune{'*', '+', '|'}
 	task_run(operations)
 }
