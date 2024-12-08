@@ -10,11 +10,11 @@ import (
 
 var board [][]rune
 var obstructions_pos []adventutils.Vec2[int]
-var guard_pos adventutils.Vec2[int]
+var guardPos adventutils.Vec2[int]
 var crossing = false
 
 func main() {
-	populate_array()
+	populateArray()
 	part1()
 	part2()
 }
@@ -34,8 +34,8 @@ func part2() {
 
 	var result int
 	for _, pos := range obstructions_pos {
-		populate_array()
-		if pos == guard_pos { continue }
+		populateArray()
+		if pos == guardPos { continue }
 		board[pos.Y][pos.X] = 'O'
 		val, _ := simulate() 
 		if val { 
@@ -51,81 +51,81 @@ func simulate() (bool, int) {
 	walks = nil
 	walks = make(map[adventutils.Vec2[int]][]rune)
 
-	walks[guard_pos] = append(walks[guard_pos], board[guard_pos.Y][guard_pos.X])
+	walks[guardPos] = append(walks[guardPos], board[guardPos.Y][guardPos.X])
 
 	var turned = false
 	for {
-		switch board[guard_pos.Y][guard_pos.X]{
+		switch board[guardPos.Y][guardPos.X]{
 		case '^':
-			if guard_pos.Y == 0 { return false, len(walks)+1 }
-			next_pos := adventutils.Vec2[int]{X: guard_pos.X, Y: guard_pos.Y-1}
+			if guardPos.Y == 0 { return false, len(walks)+1 }
+			next_pos := adventutils.Vec2[int]{X: guardPos.X, Y: guardPos.Y-1}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], '^') { return true, len(walks)+1 }
 			if slices.Contains([]rune{'#', 'O'}, next) {
-				board[guard_pos.Y][guard_pos.X] = '>'
+				board[guardPos.Y][guardPos.X] = '>'
 				turned = true
 			} else {
-				walks[guard_pos] = append(walks[guard_pos], '^')
-				move_guard(next_pos, '^', &turned)
+				walks[guardPos] = append(walks[guardPos], '^')
+				moveGuard(next_pos, '^', &turned)
 			}
 		case '<':
-			if guard_pos.X == 0 { return false, len(walks)+1 }
-			next_pos := adventutils.Vec2[int]{X: guard_pos.X-1, Y: guard_pos.Y}
+			if guardPos.X == 0 { return false, len(walks)+1 }
+			next_pos := adventutils.Vec2[int]{X: guardPos.X-1, Y: guardPos.Y}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], '<') { return true, len(walks)+1 }
 			if slices.Contains([]rune{'#', 'O'}, next) {
-				board[guard_pos.Y][guard_pos.X] = '^'
+				board[guardPos.Y][guardPos.X] = '^'
 				turned = true
 			} else {
-				walks[guard_pos] = append(walks[guard_pos], '<')
-				move_guard(next_pos, '<', &turned)
+				walks[guardPos] = append(walks[guardPos], '<')
+				moveGuard(next_pos, '<', &turned)
 			}
 		case '>':
-			if guard_pos.X+1 == len(board[guard_pos.Y]) { return false, len(walks)+1 }
-			next_pos := adventutils.Vec2[int]{X: guard_pos.X+1, Y: guard_pos.Y}
+			if guardPos.X+1 == len(board[guardPos.Y]) { return false, len(walks)+1 }
+			next_pos := adventutils.Vec2[int]{X: guardPos.X+1, Y: guardPos.Y}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], '>') { return true, len(walks)+1 }
 			if slices.Contains([]rune{'#', 'O'}, next) {
-				board[guard_pos.Y][guard_pos.X] = 'v'
+				board[guardPos.Y][guardPos.X] = 'v'
 				turned = true
 			} else {
-				walks[guard_pos] = append(walks[guard_pos], '>')
-				move_guard(next_pos, '>', &turned)
+				walks[guardPos] = append(walks[guardPos], '>')
+				moveGuard(next_pos, '>', &turned)
 			}
 		case 'v':
-			if guard_pos.Y+1 == len(board) { return false, len(walks)+1 }
-			next_pos := adventutils.Vec2[int]{X: guard_pos.X, Y: guard_pos.Y+1}
+			if guardPos.Y+1 == len(board) { return false, len(walks)+1 }
+			next_pos := adventutils.Vec2[int]{X: guardPos.X, Y: guardPos.Y+1}
 			next := board[next_pos.Y][next_pos.X]
 			if slices.Contains(walks[next_pos], 'v') { return true, len(walks)+1 }
 			if slices.Contains([]rune{'#', 'O'}, next) {
-				board[guard_pos.Y][guard_pos.X] = '<'
+				board[guardPos.Y][guardPos.X] = '<'
 				turned = true
 			} else {
-				walks[guard_pos] = append(walks[guard_pos], 'v')
-				move_guard(next_pos, 'v', &turned)
+				walks[guardPos] = append(walks[guardPos], 'v')
+				moveGuard(next_pos, 'v', &turned)
 			}
 		}
 	}
 }
 
-func move_guard(pos adventutils.Vec2[int], dir rune, turned *bool) {
+func moveGuard(pos adventutils.Vec2[int], dir rune, turned *bool) {
 	if *turned {
-		board[guard_pos.Y][guard_pos.X] = '+'
+		board[guardPos.Y][guardPos.X] = '+'
 		*turned = false
 	} else if crossing {
-		board[guard_pos.Y][guard_pos.X] = '+'
+		board[guardPos.Y][guardPos.X] = '+'
 		crossing = false
 	} else if slices.Contains([]rune{'<', '>'}, dir) {
-		board[guard_pos.Y][guard_pos.X] = '-'
+		board[guardPos.Y][guardPos.X] = '-'
 	} else {
-		board[guard_pos.Y][guard_pos.X] = '|'
+		board[guardPos.Y][guardPos.X] = '|'
 	}
 	if slices.Contains([]rune{'|','-'}, board[pos.Y][pos.X]) { crossing = true }
 	board[pos.Y][pos.X] = dir
-	guard_pos = pos
+	guardPos = pos
 }
 
-func populate_array() {
+func populateArray() {
 	file, err := os.Open("tasks/day6_sample.txt")
 	if err != nil {
 		fmt.Println(err)
@@ -139,16 +139,16 @@ func populate_array() {
 		board = append(board, []rune(scanner.Text()))
 	}
 
-	var guard_found = false
+	var guardFound = false
 	for y, line := range board {
 		for x, val := range line {
 			if slices.Contains([]rune{'^', '<', '>', 'v'}, val) {
-				guard_pos.X = x
-				guard_pos.Y = y
-				guard_found = true
+				guardPos.X = x
+				guardPos.Y = y
+				guardFound = true
 				break
 			}
-			if guard_found { break }
+			if guardFound { break }
 		}
 	}
 }

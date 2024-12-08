@@ -9,7 +9,7 @@ import (
 var board [][]rune
 
 func main() {
-	populate_array()
+	populateArray()
 	part1()
 	part2()
 }
@@ -52,7 +52,7 @@ func part2() {
 	fmt.Println("Result:", count)
 }
 
-func populate_array() {
+func populateArray() {
 	file, err := os.Open("tasks/day4_sample.txt")
 	if err != nil {
 		fmt.Println(err)

@@ -12,32 +12,32 @@ var cali map[int][]int
 
 func main() {
 	cali = make(map[int][]int)
-	populate_map()
+	populateMap()
 
 	//part 1
 	operations := []rune{'*', '+'}
-	task_run(operations)
+	taskRun(operations)
 
 	//part 2
 	operations = []rune{'*', '+', '|'}
-	task_run(operations)
+	taskRun(operations)
 }
 
-func task_run(operations []rune) {
+func taskRun(operations []rune) {
 	var result int
 	for key, vals := range cali{
-		opts := opr_opts(operations, len(vals)-1)
+		opts := oprOpts(operations, len(vals)-1)
 		if solvable(key, opts, vals) { result += key }
 	}
 	fmt.Println("Result:", result)
 }
 
-func opr_opts(oprs []rune, x int) [][]rune {
+func oprOpts(oprs []rune, x int) [][]rune {
 	if x == 0 {
 		return [][]rune{{}}
 	}
 	
-	subset := opr_opts(oprs, x-1)
+	subset := oprOpts(oprs, x-1)
 
 	var opts [][]rune
 	for _, line := range subset {
@@ -73,7 +73,7 @@ func solvable(goal int, opts [][]rune, nums []int) bool {
 	return false
 }
 
-func populate_map() {
+func populateMap() {
 	file, err := os.Open("tasks/day7_sample.txt")
 	if err != nil {
 		fmt.Println(err)

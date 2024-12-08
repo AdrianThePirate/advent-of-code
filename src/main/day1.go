@@ -11,7 +11,7 @@ import (
 var left, right []int
 
 func main() {
-	populate_list()
+	populateList()
 	part1()
 	part2()
 }
@@ -29,7 +29,7 @@ func part1() {
 }
 
 func part2() {
-	right_map := repeat_map(right)
+	right_map := repeatMap(right)
 
 	var result int
 	for _, value := range left {
@@ -39,7 +39,7 @@ func part2() {
 	fmt.Println("Result part 2:", result)
 }
 
-func populate_list() {
+func populateList() {
 	file, err := os.Open("tasks/day1_sample.txt")
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -62,7 +62,7 @@ func populate_list() {
 	}
 }
 
-func repeat_map(n []int) map[int]int {
+func repeatMap(n []int) map[int]int {
 	mapped := map[int]int{}
 	for _, value := range n {
 		_, exists := mapped[value]

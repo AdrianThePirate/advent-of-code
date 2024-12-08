@@ -12,13 +12,13 @@ import (
 var reports []string
 
 func main() {
-	populate_list()
+	populateList()
 	part1()
 	part2()
 }
 
 func part1() {
-	var safe_count int
+	var safeCount int
 
 	for _, value := range reports {
 		parts := strings.Split(value, " ")
@@ -46,10 +46,10 @@ func part1() {
 			if prev == num { safe = false; break }
 			prev = num
 		}
-		if safe { safe_count += 1 }
+		if safe { safeCount += 1 }
 	}
 
-	println("Safe count:", safe_count)
+	println("Safe count:", safeCount)
 }
 
 func part2() {
@@ -88,7 +88,7 @@ func part2() {
 	println("Safe count:", safe_count)
 }
 
-func populate_list() {
+func populateList() {
 	file, err := os.Open("tasks/day2_sample.txt")
 	if err != nil {
 		fmt.Println("Error:", err)
