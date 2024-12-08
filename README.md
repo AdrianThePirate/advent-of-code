@@ -13,7 +13,7 @@ Note my personal challenge data is not included in this repo, only the samples f
 | Day | Part 1 | Part 2 |
 | :-: | :----: | :----: |
 |  1  |   🌟   |   🌟   |
-|  2  |        |        |
+|  2  |   🌟   |   🌟   |
 |  3  |        |        |
 |  4  |        |        |
 |  5  |        |        |
