@@ -20,6 +20,7 @@ Note my personal challenge data is not included in this repo, only the samples f
 |  6  |   🌟   |   🌟   |
 |  7  |   🌟   |   🌟   |
 |  8  |   🌟   |   🌟   |
+|  9  |   🌟   |   🌟   |
 
 ## 2015 Results
 
@@ -33,6 +34,7 @@ Note my personal challenge data is not included in this repo, only the samples f
 |  6  |        |        |
 |  7  |        |        |
 |  8  |        |        |
+|  9  |        |        |
 | 10  |        |        |
 | 11  |        |        |
 | 12  |        |        |
