@@ -14,13 +14,20 @@ func main() {
 	}
 
 	if trails, ok := arr.([][]int); ok {
-		var result int
+		var result1, result2 int
 		for y := range trails {
 			for x, val := range trails[y] {
-				if val == 0 { result += len(findPath(&trails, vector.Vec2[int]{X: x, Y: y})) }
+				if val == 0 { 
+					result := findPath(&trails, vector.Vec2[int]{X: x, Y: y})
+					result1 += len(result)
+					for _, val := range result {
+						result2 += val
+					}
+				}
 			}
 		}
-		fmt.Println(result)
+		fmt.Println(result1)
+		fmt.Println(result2)
 	}
 
 }

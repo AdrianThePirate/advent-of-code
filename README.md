@@ -1,4 +1,4 @@
-# Advent of Code 2024
+# Advent of Code
 
 [Advent of Code](https://adventofcode.com/) is an advent calendar containing programming puzzles everyday through advent. Made by [Eric Wastl](https://was.tl/).
 
@@ -21,7 +21,7 @@ Note my personal challenge data is not included in this repo, only the samples f
 |  7  |   🌟   |   🌟   |
 |  8  |   🌟   |   🌟   |
 |  9  |   🌟   |   🌟   |
-| 10  |   🌟   |        |
+| 10  |   🌟   |   🌟   |
 
 ## 2015 Results
 
