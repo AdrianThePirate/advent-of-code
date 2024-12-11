@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	arr, err := input.Array2D("2024/tasks/day10_sample.txt", 0)
+	arr, err := input.FileToArray2D("2024/tasks/day10_sample.txt", 0)
 	if err != nil {
 		fmt.Println(err)
 		return
