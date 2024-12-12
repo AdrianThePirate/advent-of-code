@@ -72,3 +72,19 @@ func (v1 Vec2[T]) Len(arg interface{}) float64 {
 func (v1 Vec2[T]) Dot(v2 Vec2[T]) T {
 	return (v1.X * v2.X) + (v1.Y * v2.Y)
 }
+
+func (v1 Vec2[T]) Up() Vec2[T] {
+	return Vec2[T]{Y: v1.Y - 1, X: v1.X }
+}
+
+func (v1 Vec2[T]) Down() Vec2[T] {
+	return Vec2[T]{Y: v1.Y + 1, X: v1.X }
+}
+
+func (v1 Vec2[T]) Left() Vec2[T] {
+	return Vec2[T]{Y: v1.Y, X: v1.X - 1 }
+}
+
+func (v1 Vec2[T]) Right() Vec2[T] {
+	return Vec2[T]{Y: v1.Y, X: v1.X + 1}
+}

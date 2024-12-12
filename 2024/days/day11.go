@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("2024/tasks/day11_sample.txt")
+	file, err := os.Open("2024/tasks/day11.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -23,6 +23,9 @@ func main() {
 		stones[val] += 1
 	}
 	
+	for i := 0; i < 50; i++{
+		fmt.Println((i+1)*5, blinks(&stones, 5), len(stones))
+	}
 	fmt.Println(blinks(&stones, 25))
 	fmt.Println(blinks(&stones, 50))
 }

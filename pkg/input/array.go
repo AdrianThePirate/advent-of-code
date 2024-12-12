@@ -9,40 +9,39 @@ import (
 	"strings"
 )
 
-func FileToArray2D(path string, targetType interface{}) (interface{}, error) {
+func FileToArray2D[T any](path string) (array.Array2D[T], error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	var intResult [][]int
-	var runeResult [][]rune
+	var result array.Array2D[T]
 
 	scanner := bufio.NewScanner(file)
+
 	for scanner.Scan() {
-		switch targetType.(type) {
-		case rune:
-			runeResult = append(runeResult, []rune(scanner.Text()))
-			break
-		case int:
-			line := scanner.Text()
-			var row []int
-			for _, r := range line {
-				row = append(row, int(r - '0'))
+		line := scanner.Text()
+		var row[]T
+		for _, r := range line {
+			var value T
+			switch any(new(T)).(type) {
+			case *rune:
+				value = any(r).(T)
+			case *int:
+				if r < '0' || r > '9' {
+					return nil, fmt.Errorf("invalid character '%c' for int conversion", r)
+				}
+				value = any(r - '0').(T)
+			default:
+				return nil, fmt.Errorf("unsupported type")
 			}
-			intResult = append(intResult, row)
+			row = append(row, value)
 		}
+		result = append(result, row)
 	}
 
-	switch targetType.(type) {
-	case rune:
-		return runeResult, nil
-	case int:
-		return intResult, nil
-	default:
-		return nil, fmt.Errorf("unsupported type")
-	}
+	return result, nil
 }
 
 func FileToArray[T any](path string) (array.Array[T], error) {
@@ -54,8 +53,8 @@ func FileToArray[T any](path string) (array.Array[T], error) {
 	defer file.Close()
 	
 	scanner := bufio.NewScanner(file)
-	var test T
-	switch any(test).(type) {
+
+	switch any(new(T)).(type) {
 	case int:
 		for scanner.Scan() {
 			line := scanner.Text()
@@ -70,7 +69,7 @@ func FileToArray[T any](path string) (array.Array[T], error) {
 				if err != nil {
 					return array.Array[T]{}, err
 				}
-				arr.Append(any(num).(T))
+				arr = append(arr, any(num).(T))
 			}
 		}
 	default:
