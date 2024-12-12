@@ -9,27 +9,30 @@ import (
 )
 
 func main() {
-	farm, err := input.FileToArray2D[rune]("2024/tasks/day12.txt")
+	farm, err := input.FileToArray2D[rune]("2024/tasks/day12_sample.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println(fencePrice(farm))
+	normal, bulk := fencePrice(farm)
+	fmt.Printf("Normal: %d\nBulk: %d", normal, bulk)
 }
 
-func fencePrice(farm array.Array2D[rune]) int{
+func fencePrice(farm array.Array2D[rune]) (int, int) {
 	price := 0
+	priceBulk := 0
 
 	for y, l := range farm {
 		for x, r := range l {
 			var v []vector.Vec2[int]
-			if r != '.' { if area, border, err := sizeRegion(&farm, vector.Vec2[int]{X: x, Y: y}, &v); err == nil { price += area * border } }
+			pos := vector.Vec2[int]{X: x, Y: y}
+			if r != '.' { if area, border, err := sizeRegion(&farm, pos, &v); err == nil { price += area * border; priceBulk += area * findEdges(v) } }
 
 		}
 	}
 
-	return price
+	return price, priceBulk
 }
 
 func sizeRegion(farm *array.Array2D[rune], pos vector.Vec2[int], visited *[]vector.Vec2[int]) (int, int, error) {
@@ -50,4 +53,35 @@ func sizeRegion(farm *array.Array2D[rune], pos vector.Vec2[int], visited *[]vect
 	farm.SetPos(pos, '.')
 
 	return area, border, nil
+}
+
+func findEdges(visited []vector.Vec2[int]) int{
+	corners := 0
+		
+	for _, val := range visited{
+		upVisited := slices.Contains(visited, val.Up())
+		leftVisited := slices.Contains(visited, val.Left())
+		rightVisited := slices.Contains(visited, val.Right())
+		downVisited := slices.Contains(visited, val.Down())
+
+		if !upVisited && !leftVisited { corners++ }
+		if !upVisited && !rightVisited { corners++ }
+		if !downVisited && !leftVisited { corners++ }
+		if !downVisited && !rightVisited { corners++ }
+
+		if upVisited && leftVisited {
+			if !slices.Contains(visited, val.Up().Left()) { corners++ }
+		}
+		if upVisited && rightVisited {
+			if !slices.Contains(visited, val.Up().Right()) { corners++ }
+		}
+		if downVisited && leftVisited {
+			if !slices.Contains(visited, val.Down().Left()) { corners++ }
+		}
+		if downVisited && rightVisited {
+			if !slices.Contains(visited, val.Down().Right()) { corners++ }
+		}
+	}
+
+	return corners
 }
