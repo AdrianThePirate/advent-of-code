@@ -1,9 +1,16 @@
 package vector
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type Numeric interface {
 	int | int32 | int64 | float32 | float64
+}
+
+type Intager interface {
+	int | int32 | int64
 }
 
 type Vec2[T Numeric] struct {
@@ -48,6 +55,18 @@ func (v1 Vec2[T]) Div(v2 Vec2[T]) Vec2[T] {
 	}
 }
 
+func (v1 Vec2[T]) Modulo(val Vec2[T]) (Vec2[T], error) {
+	switch any(v1.X).(type) {
+	case int, int32, int64:
+		return Vec2[T]{
+			X: T(int(v1.X) % int(val.X)),
+			Y: T(int(v1.Y) % int(val.Y)),
+		}, nil
+	default:
+		return Vec2[T]{}, fmt.Errorf("unsupported type for modulo")
+	}
+}
+
 func (v1 Vec2[T]) Magn() float64 {
 	return math.Sqrt(float64(v1.Dot(v1)))
 }
@@ -88,3 +107,4 @@ func (v1 Vec2[T]) Left() Vec2[T] {
 func (v1 Vec2[T]) Right() Vec2[T] {
 	return Vec2[T]{Y: v1.Y, X: v1.X + 1}
 }
+
