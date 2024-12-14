@@ -64,7 +64,7 @@ func findTree(arr array.Array2D[vector.Vec2[int]], h int, mW int, mH int) int {
 			var c = 0
 			test := p
 			for {
-				if c >= h { fmt.Println("hit hight", c, f); return i }
+				if c >= h { return i }
 				if slices.Contains(f, test.Down()) { c++; test = test.Down() } else { break }
 			}
 		}
