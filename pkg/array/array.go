@@ -18,3 +18,13 @@ func (a *Array[T]) MoveIndex(srcIdx int, destIdx int) {
 	}
 	a.InsertIndex(value, destIdx)
 }
+
+func (a *Array[T]) Pop() T {
+	var emt T
+	if len(*a) == 0 {
+		return emt
+	}
+	value := (*a)[0]
+	a.RemoveIndex(0)
+	return value
+}
