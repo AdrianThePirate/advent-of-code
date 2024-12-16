@@ -33,31 +33,6 @@ func main() {
 	}
 	lwrh := wrhEnlarge(wrh)
 
-	// var x, z int
-	// for p, _ := range wrh {
-	// 	if p.X > x { x = p.X }
-	// 	if p.Y > z { z = p.Y }
-	// }
-
-	// for i := 0; i <= z; i++ {
-	// 	for j := 0; j <= x; j++ {
-	// 		r, ok := wrh[vector.Vec2[int]{X: j, Y: i}]
-	// 		if ok { fmt.Printf("%c", r)} else { fmt.Print(".") }
-	// 	}
-	// 	fmt.Printf("\n")
-	// } 
-	// for p, _ := range lwrh {
-	// 	if p.X > x { x = p.X }
-	// 	if p.Y > z { z = p.Y }
-	// }
-
-	// for i := 0; i <= z; i++ {
-	// 	for j := 0; j <= x; j++ {
-	// 		r, ok := lwrh[vector.Vec2[int]{X: j, Y: i}]
-	// 		if ok { fmt.Printf("%c", r)} else { fmt.Print(".") }
-	// 	}
-	// 	fmt.Printf("\n")
-	// } 
 	fmt.Println(simulate(wrh, inst, rb))
 	rb = vector.Vec2[int]{X: rb.X*2, Y: rb.Y}
 	fmt.Println(simulate(lwrh, inst, rb))
@@ -66,20 +41,6 @@ func main() {
 func simulate(wrh map[vector.Vec2[int]]rune, inst array.Array[rune], rb vector.Vec2[int]) int {
 	for _, r := range inst {
 		if move(&wrh, r, rb) { rb = rb.Direction(r) }
-
-		// var x, y int
-		// for p, _ := range wrh {
-		// 	if p.X > x { x = p.X }
-		// 	if p.Y > y { y = p.Y }
-		// }
-
-		// for i := 0; i <= y; i++ {
-		// 	for j := 0; j <= x; j++ {
-		// 		r, ok := wrh[vector.Vec2[int]{X: j, Y: i}]
-		// 		if ok { fmt.Printf("%c", r)} else { fmt.Print(".") }
-		// 	}
-		// 	fmt.Printf("\n")
-		// } 
 	}
 
 	var gps int
