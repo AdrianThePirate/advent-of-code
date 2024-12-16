@@ -6,6 +6,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"slices"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 	var inst array.Array[rune]
 	var rb vector.Vec2[int]
 
-	file, err := os.Open("2024/tasks/day15_sample.txt")
+	file, err := os.Open("2024/tasks/day15.txt")
 	if err != nil { fmt.Println(err); return }
 	defer file.Close()
 
@@ -92,38 +93,34 @@ func simulate(wrh map[vector.Vec2[int]]rune, inst array.Array[rune], rb vector.V
 }
 
 func move(wrh *map[vector.Vec2[int]]rune, dir rune, pos vector.Vec2[int]) bool {
-	// r := (*wrh)[pos]
-	r, r2 := (*wrh)[pos], '0'
-	var sc vector.Vec2[int]
-	if r == '#' { return false }	
-	if r == '[' { sc = pos.Right() }
-	if r == ']' { sc = pos.Left() }
-	//np := pos.Direction(dir)
-	np, np2 := pos.Direction(dir), vector.Vec2[int]{}
-	if (sc != vector.Vec2[int]{}) { np2 = sc.Direction(dir); r2 = (*wrh)[sc]; }
+	var hit array.Array[struct{pos vector.Vec2[int]; r rune}]
+	hit = append(hit, struct{pos vector.Vec2[int]; r rune}{pos, '@'})
 
-	skip := false
-	if !(r == '[' && dir == '>') && !(r == ']' && dir == '<') {
-		if (r == '[' && dir == '<') || (r == ']' && dir == '>') { skip = true }
-		_, ok := (*wrh)[np]
-		if ok { if !(move(wrh, dir, np)) { return false; } }
-	}
-	if r2 != '0' && (!(r2 == '[' && dir == '>') && !(r2 == ']' && dir == '<')) {
-		if !skip {  
-			//fmt.Println(np2, dir, r2, sc)
-			_, ok := (*wrh)[np2]
-			if ok { if !(move(wrh, dir, np2)) { return false; } }
+	for i := 0; i < len(hit); i++ {
+		np := hit[i].pos.Direction(dir)
+		r := (*wrh)[np]
+		if slices.Contains(hit, struct{pos vector.Vec2[int]; r rune}{pos: np, r: r}) { continue }
+		switch r {
+		case '#':
+			return false
+		case 'O':
+			hit = append(hit, struct{pos vector.Vec2[int]; r rune}{np, r})
+		case '[':
+			hit = append(hit, struct{pos vector.Vec2[int]; r rune}{np, r})
+			hit= append(hit, struct{pos vector.Vec2[int]; r rune}{np.Right(), ']'})
+		case ']':
+			hit = append(hit, struct{pos vector.Vec2[int]; r rune}{np, r})
+			hit = append(hit, struct{pos vector.Vec2[int]; r rune}{np.Left(), '['})
 		}
 	}
 
-	if (sc != vector.Vec2[int]{}) {
-		// fmt.Println(r, r2)
-		delete(*wrh, sc)
-		(*wrh)[np2] = r2
+	for _, data := range hit {
+		delete(*wrh, data.pos)
 	}
 
-	delete(*wrh, pos)
-	(*wrh)[np] = r
+	for _, data := range hit {
+		(*wrh)[data.pos.Direction(dir)] = data.r
+	}
 
 	return true
 }
