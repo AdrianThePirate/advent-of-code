@@ -25,6 +25,8 @@ Note my personal challenge data is not included in this repo, only the samples f
 | 11  |   🌟   |   🌟   |
 | 12  |   🌟   |   🌟   |
 | 13  |   🌟   |   🌟   |
+| 14  |   🌟   |   🌟   |
+| 15  |   🌟   |        |
 
 ## 2015 Results
 

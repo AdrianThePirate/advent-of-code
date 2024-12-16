@@ -108,3 +108,17 @@ func (v1 Vec2[T]) Right() Vec2[T] {
 	return Vec2[T]{Y: v1.Y, X: v1.X + 1}
 }
 
+func (v1 Vec2[T]) Direction(r rune) Vec2[T] {
+	switch r {
+	case '>':
+		return v1.Right()
+	case '<':
+		return v1.Left()
+	case '^':
+		return v1.Up()
+	case 'v':
+		return v1.Down()
+	default:
+		return Vec2[T]{}
+	}
+}
