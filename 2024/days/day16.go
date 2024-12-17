@@ -25,7 +25,7 @@ func main() {
 	var goal vector.Vec2[int]
 	var rain position
 	
-	file, err := os.Open("2024/tasks/day16_sample2.txt")
+	file, err := os.Open("2024/tasks/day16.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -70,8 +70,8 @@ func aStarAlg(rain position, goal vector.Vec2[int], walls array.Array[vector.Vec
 			case 2: options = append(options, position{pos: current.pos.pos.Down(), deg: current.pos.deg})
 			case 3: options = append(options, position{pos: current.pos.pos.Left(), deg: current.pos.deg})
 		}
-		options = append(options, position{pos: current.pos.pos, deg: (current.pos.deg-1+5)%5})
-		options = append(options, position{pos: current.pos.pos, deg: (current.pos.deg+1+5)%5})
+		options = append(options, position{pos: current.pos.pos, deg: (current.pos.deg-1+4)%4})
+		options = append(options, position{pos: current.pos.pos, deg: (current.pos.deg+1+4)%4})
 
 		for _, neighPos := range options{
 			if closedSet[neighPos] { continue }
@@ -110,6 +110,7 @@ func aStarAlg(rain position, goal vector.Vec2[int], walls array.Array[vector.Vec
 func backtrace(cf map[position]*node, s *node) int{
 	var l int
 	for n := s; n != nil; n = cf[n.pos] {
+		fmt.Println(n.pos, n.g)
 		l++
 	}
 	return l
