@@ -6,12 +6,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"slices"
 )
 
 type node struct {
 	pos position
-	g, h, f int
+	g int
 	parent *node
 }
 
@@ -21,11 +20,11 @@ type position struct {
 }
 
 func main() {
-	var walls array.Array[vector.Vec2[int]]
+	walls := make(map[vector.Vec2[int]]bool)
 	var goal vector.Vec2[int]
 	var rain position
 	
-	file, err := os.Open("2024/tasks/day16.txt")
+	file, err := os.Open("2024/tasks/day16_sample1.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -36,29 +35,33 @@ func main() {
 	for scanner.Scan() {
 		for x, r := range scanner.Text(){
 			switch r {
-			case '#': walls = append(walls, vector.Vec2[int]{X: x, Y: y})
+			case '#': walls[vector.Vec2[int]{X: x, Y: y}] = true
 			case 'S': rain = position{pos: vector.Vec2[int]{X: x, Y: y}, deg: 1}
 			case 'E': goal = vector.Vec2[int]{X: x, Y: y}
 			}
 		}
 		y++
 	}
-	fmt.Println(aStarAlg(rain, goal, walls))
+	cost, seats := aStarAlg(rain, goal, walls)
+	fmt.Printf("Cost: %d Seats: %d\n", cost, seats)
 }
 
-func aStarAlg(rain position, goal vector.Vec2[int], walls array.Array[vector.Vec2[int]]) int {
+func aStarAlg(rain position, goal vector.Vec2[int], walls map[vector.Vec2[int]]bool) (int, int) {
 	var openSet array.Array[node]
 	openSet = append(openSet, node{pos: rain})
 
 	closedSet := make(map[position]bool)
-	cameFrom := make(map[position]*node)
+
+	var paths array.Array[node]
+	var maxG int
 
 	for len(openSet) > 0 {
 		current := lowest(&openSet)
 
 		if current.pos.pos == goal {
+			paths = append(paths, current)
+			maxG = current.g
 			//println(backtrace(cameFrom, &current))
-			return current.g
 		}
 
 		closedSet[current.pos] = true
@@ -76,21 +79,21 @@ func aStarAlg(rain position, goal vector.Vec2[int], walls array.Array[vector.Vec
 		for _, neighPos := range options{
 			if closedSet[neighPos] { continue }
 
-			if slices.Contains(walls, neighPos.pos) {	continue }
+			if walls[neighPos.pos] { continue }
 
 			tentG := current.g+1
 			if neighPos.deg != current.pos.deg { tentG = current.g+1000 }
 			neigh := node{
 				pos: neighPos,
 				g: tentG,
-				h: int(neighPos.pos.DistanceTo(goal)),
-				f: tentG + int(neighPos.pos.DistanceTo(goal)),
 				parent: &current,
 			}
 
+			if maxG != 0 && tentG > maxG { continue }
+
 			skip := false
 			for _, n := range openSet {
-				if n.pos == neighPos && tentG >= n.g {
+				if n.pos == neighPos && tentG > n.g {
 					skip = true
 					break
 				}
@@ -99,21 +102,22 @@ func aStarAlg(rain position, goal vector.Vec2[int], walls array.Array[vector.Vec
 				continue
 			}
 
-			cameFrom[neighPos] = &current
 			openSet = append(openSet, neigh)
 		}
 	} 
 
-	return 0
+	return maxG, backtrace(paths)
 }
 
-func backtrace(cf map[position]*node, s *node) int{
-	var l int
-	for n := s; n != nil; n = cf[n.pos] {
-		fmt.Println(n.pos, n.g)
-		l++
+func backtrace(arr array.Array[node]) int{
+	seats := make(map[vector.Vec2[int]]bool)
+	for _, n := range arr {
+		for {
+			seats[n.pos.pos] = true
+			if n.parent != nil { n = *n.parent } else { break }
+		}
 	}
-	return l
+	return len(seats)
 }
 
 func lowest(arr *array.Array[node]) node {
