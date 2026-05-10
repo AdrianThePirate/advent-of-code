@@ -3,9 +3,9 @@ package year2015
 import (
 	"github.com/AdrianThePirate/advent-of-code/pkg/registry"
 
-	d1 "github.com/AdrianThePirate/advent-of-code/2015/days/day1"
-	d2 "github.com/AdrianThePirate/advent-of-code/2015/days/day2"
-	d3 "github.com/AdrianThePirate/advent-of-code/2015/days/day3"
+	d1 "github.com/AdrianThePirate/advent-of-code/2015/day1"
+	d2 "github.com/AdrianThePirate/advent-of-code/2015/day2"
+	d3 "github.com/AdrianThePirate/advent-of-code/2015/day3"
 )
 
 func init() {
