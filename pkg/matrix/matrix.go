@@ -1,7 +1,7 @@
 package matrix
 
 import (
-	"advent/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/array"
 	"fmt"
 )
 

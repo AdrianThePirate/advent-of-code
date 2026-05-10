@@ -1,5 +1,5 @@
-**/tasks/*
+**/day*/*.txt
 
-!**/tasks/*sample*.txt
+!**/day*/*sample*.txt
 
 .vscode/

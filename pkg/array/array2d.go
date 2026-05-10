@@ -1,7 +1,7 @@
 package array
 
 import (
-	"advent/pkg/vector"
+	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 	"fmt"
 )
 
