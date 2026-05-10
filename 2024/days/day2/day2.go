@@ -5,12 +5,14 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 	"github.com/AdrianThePirate/advent-of-code/pkg/math"
 )
 
-func Run() {
-	reports, err := input.FileToLines("2024/days/day2/day2_sample.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day2/day2", variant)
+	reports, err := input.FileToLines(path)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return

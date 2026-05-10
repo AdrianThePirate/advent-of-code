@@ -7,15 +7,17 @@ import (
 	"slices"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
 
-func Run() {
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day15/day15", variant)
 	wrh := make(map[vector.Vec2[int]]rune)
 	var inst array.Array[rune]
 	var rb vector.Vec2[int]
 
-	file, err := os.Open("2024/days/day15/day15.txt")
+	file, err := os.Open(path)
 	if err != nil {
 		fmt.Println(err)
 		return

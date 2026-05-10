@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"sort"
 
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 	"github.com/AdrianThePirate/advent-of-code/pkg/math"
 )
 
-func Run() {
-	left, right := populateList()
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day1/day1", variant)
+	left, right := populateList(path)
 	part1(left, right)
 	part2(left, right)
 }
@@ -37,8 +39,8 @@ func part2(left, right []int) {
 	fmt.Println("Result part 2:", result)
 }
 
-func populateList() ([]int, []int) {
-	lines, err := input.FileToLines("2024/days/day1/day1_sample.txt")
+func populateList(path string) ([]int, []int) {
+	lines, err := input.FileToLines(path)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return nil, nil

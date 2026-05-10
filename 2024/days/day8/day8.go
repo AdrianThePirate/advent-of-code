@@ -1,15 +1,16 @@
 package day8
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
+	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
 
-func Run() {
-	antPos, maxX, maxY := populateMap()
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day8/day8", variant)
+	antPos, maxX, maxY := populateMap(path)
 
 	fmt.Println("Result", len(findAnt(antPos, maxX, maxY)))
 	fmt.Println("Result", len(findAntReson(antPos, maxX, maxY)))
@@ -41,9 +42,9 @@ func findAntReson(antPos map[rune][]vector.Vec2[int], maxX, maxY int) map[vector
 				if loc.Len(pos) == 0 {
 					continue
 				}
-				vector := pos.Sub(loc)
+				diff := pos.Sub(loc)
 				for i := 1; ; i++ {
-					antPos := loc.Add(vector.Mul(i))
+					antPos := loc.Add(diff.Mul(i))
 					if antPos.X >= 0 && antPos.X < maxX && antPos.Y >= 0 && antPos.Y < maxY {
 						foundAnt[antPos]++
 					} else {
@@ -56,25 +57,23 @@ func findAntReson(antPos map[rune][]vector.Vec2[int], maxX, maxY int) map[vector
 	return foundAnt
 }
 
-func populateMap() (map[rune][]vector.Vec2[int], int, int) {
-	file, err := os.Open("2024/days/day8/day8_sample.txt")
+func populateMap(path string) (map[rune][]vector.Vec2[int], int, int) {
+	lines, err := input.FileToLines(path)
 	if err != nil {
 		fmt.Println(err)
 		return nil, 0, 0
 	}
-	defer file.Close()
 
 	antPos := make(map[rune][]vector.Vec2[int])
 	var maxX, maxY int
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		xLine := []rune(scanner.Text())
+	for y, line := range lines {
+		xLine := []rune(line)
 		if len(xLine) > maxX {
 			maxX = len(xLine)
 		}
-		for j, val := range xLine {
+		for x, val := range xLine {
 			if val != '.' {
-				antPos[val] = append(antPos[val], vector.Vec2[int]{X: j, Y: maxY})
+				antPos[val] = append(antPos[val], vector.Vec2[int]{X: x, Y: y})
 			}
 		}
 		maxY++

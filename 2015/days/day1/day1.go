@@ -5,14 +5,14 @@ import (
 	"os"
 )
 
-func Run() {
+func Run(variant string) {
 	data, err := os.ReadFile("2015/days/day1/day1.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	floor, basement := getFloor(data)
-	fmt.Printf("Floor: %d Basement Entered: %d\n", floor, basement)
+	fmt.Printf("Floor: %d\nBasement Entered: %d\n", floor, basement)
 }
 
 func getFloor(data []byte) (int, int) {

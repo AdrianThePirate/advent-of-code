@@ -5,11 +5,13 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 )
 
-func Run() {
-	cali := populateMap()
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day7/day7", variant)
+	cali := populateMap(path)
 
 	taskRun(cali, []rune{'*', '+'})
 	taskRun(cali, []rune{'*', '+', '|'})
@@ -69,8 +71,8 @@ func solvable(goal int, opts [][]rune, nums []int) bool {
 	return false
 }
 
-func populateMap() map[int][]int {
-	lines, err := input.FileToLines("2024/days/day7/day7_sample.txt")
+func populateMap(path string) map[int][]int {
+	lines, err := input.FileToLines(path)
 	if err != nil {
 		fmt.Println(err)
 		return nil

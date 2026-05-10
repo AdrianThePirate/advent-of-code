@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"regexp"
 
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 )
 
-func Run() {
-	mem, err := input.FileToString("2024/days/day3/day3_sample.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day3/day3", variant)
+	mem, err := input.FileToString(path)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return

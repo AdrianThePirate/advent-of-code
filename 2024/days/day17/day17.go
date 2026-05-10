@@ -9,14 +9,16 @@ import (
 	"strings"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 )
 
 type vm struct {
 	a, b, c, ptr int
 }
 
-func Run() {
-	file, err := os.Open("2024/days/day17/day17.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day17/day17", variant)
+	file, err := os.Open(path)
 	if err != nil {
 		fmt.Println(err)
 		return

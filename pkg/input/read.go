@@ -90,7 +90,7 @@ func FileToArray2D[T any](path string) (array.Array2D[T], error) {
 				if r < '0' || r > '9' {
 					return nil, fmt.Errorf("invalid character '%c' for int conversion", r)
 				}
-				value = any(r - '0').(T)
+				value = any(int(r - '0')).(T)
 			default:
 				return nil, fmt.Errorf("unsupported type")
 			}

@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
 
@@ -20,12 +21,13 @@ type position struct {
 	deg int
 }
 
-func Run() {
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day16/day16", variant)
 	walls := make(map[vector.Vec2[int]]bool)
 	var goal vector.Vec2[int]
 	var rain position
 
-	file, err := os.Open("2024/days/day16/day16_sample1.txt")
+	file, err := os.Open(path)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -47,7 +49,7 @@ func Run() {
 		y++
 	}
 	cost, seats := aStarAlg(rain, goal, walls)
-	fmt.Printf("Cost: %d Seats: %d\n", cost, seats)
+	fmt.Printf("Cost: %d\nSeats: %d\n", cost, seats)
 }
 
 func aStarAlg(rain position, goal vector.Vec2[int], walls map[vector.Vec2[int]]bool) (int, int) {

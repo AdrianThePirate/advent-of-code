@@ -7,7 +7,7 @@ import (
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
 
-func Run() {
+func Run(variant string) {
 	data, err := os.ReadFile("2015/days/day3/day3.txt")
 	if err != nil {
 		fmt.Println(err)

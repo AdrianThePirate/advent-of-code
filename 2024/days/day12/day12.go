@@ -5,12 +5,14 @@ import (
 	"slices"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
 
-func Run() {
-	farm, err := input.FileToArray2D[rune]("2024/days/day12/day12_sample.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day12/day12", variant)
+	farm, err := input.FileToArray2D[rune](path)
 	if err != nil {
 		fmt.Println(err)
 		return

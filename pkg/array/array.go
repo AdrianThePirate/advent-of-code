@@ -13,9 +13,6 @@ func (a *Array[T]) RemoveIndex(index int) {
 func (a *Array[T]) MoveIndex(srcIdx int, destIdx int) {
 	value := (*a)[srcIdx]
 	a.RemoveIndex(srcIdx)
-	if srcIdx < destIdx {
-		destIdx--
-	}
 	a.InsertIndex(value, destIdx)
 }
 

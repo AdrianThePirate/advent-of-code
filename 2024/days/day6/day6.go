@@ -5,6 +5,7 @@ import (
 	"slices"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
@@ -15,14 +16,15 @@ type state struct {
 	crossing bool
 }
 
-func Run() {
-	s, err := populateArray()
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day6/day6", variant)
+	s, err := populateArray(path)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	obstructionPos := part1(s)
-	part2(obstructionPos)
+	part2(obstructionPos, path)
 }
 
 func part1(s state) []vector.Vec2[int] {
@@ -35,14 +37,14 @@ func part1(s state) []vector.Vec2[int] {
 			}
 		}
 	}
-	fmt.Println("Result", len(obstructionPos)+1)
+	fmt.Println("Result", len(obstructionPos))
 	return obstructionPos
 }
 
-func part2(obstructionPos []vector.Vec2[int]) {
+func part2(obstructionPos []vector.Vec2[int], path string) {
 	var result int
 	for _, pos := range obstructionPos {
-		s, err := populateArray()
+		s, err := populateArray(path)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -152,8 +154,8 @@ func moveGuard(s *state, pos vector.Vec2[int], dir rune, turned *bool) {
 	s.guardPos = pos
 }
 
-func populateArray() (state, error) {
-	board, err := input.FileToArray2D[rune]("2024/days/day6/day6_sample.txt")
+func populateArray(path string) (state, error) {
+	board, err := input.FileToArray2D[rune](path)
 	if err != nil {
 		return state{}, err
 	}

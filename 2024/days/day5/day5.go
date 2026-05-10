@@ -7,11 +7,13 @@ import (
 	"strings"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 )
 
-func Run() {
-	rules, rulesReversed, pages := importData()
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day5/day5", variant)
+	rules, rulesReversed, pages := importData(path)
 	incorrect := part1(rules, pages)
 	part2(rules, rulesReversed, incorrect)
 }
@@ -68,8 +70,8 @@ func part2(rules map[int][]int, rulesReversed map[int][]int, incorrect [][]int) 
 	fmt.Println("Result:", result)
 }
 
-func importData() (map[int][]int, map[int][]int, [][]int) {
-	lines, err := input.FileToLines("2024/days/day5/day5_sample.txt")
+func importData(path string) (map[int][]int, map[int][]int, [][]int) {
+	lines, err := input.FileToLines(path)
 	if err != nil {
 		fmt.Println(err)
 		return nil, nil, nil

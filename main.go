@@ -12,7 +12,7 @@ import (
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: go run . <year> <day>")
+		fmt.Println("Usage: go run . <year> <day> [variant]")
 		os.Exit(1)
 	}
 
@@ -27,5 +27,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	registry.Run(year, day)
+	var variant string
+	if len(os.Args) > 3 {
+		variant = os.Args[3]
+	}
+
+	registry.Run(year, day, variant)
 }

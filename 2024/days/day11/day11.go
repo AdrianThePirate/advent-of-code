@@ -5,11 +5,13 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 )
 
-func Run() {
-	lines, err := input.FileToLines("2024/days/day11/day11.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day11/day11", variant)
+	lines, err := input.FileToLines(path)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -20,9 +22,6 @@ func Run() {
 		stones[val] += 1
 	}
 
-	for i := 0; i < 50; i++ {
-		fmt.Println((i+1)*5, blinks(&stones, 5), len(stones))
-	}
 	fmt.Println(blinks(&stones, 25))
 	fmt.Println(blinks(&stones, 50))
 }

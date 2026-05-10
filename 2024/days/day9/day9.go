@@ -5,10 +5,12 @@ import (
 	"os"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 )
 
-func Run() {
-	disk, err := os.ReadFile("2024/days/day9/day9_sample.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day9/day9", variant)
+	disk, err := os.ReadFile(path)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,7 +45,7 @@ func expand(disk []byte) array.Array[int] {
 
 func format(disk *array.Array[int]) {
 	formatted := false
-	for i := len(*disk) - 1; i >= 0; i-- {
+	for i := len(*disk) -1; i >= 0; i-- {
 		if (*disk)[i] == -1 {
 			continue
 		}

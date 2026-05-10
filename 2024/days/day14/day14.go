@@ -7,11 +7,13 @@ import (
 	"slices"
 
 	"github.com/AdrianThePirate/advent-of-code/pkg/array"
+	"github.com/AdrianThePirate/advent-of-code/pkg/cmd"
 	"github.com/AdrianThePirate/advent-of-code/pkg/vector"
 )
 
-func Run() {
-	file, err := os.Open("2024/days/day14/day14.txt")
+func Run(variant string) {
+	path := cmd.InputPath("2024/days/day14/day14", variant)
+	file, err := os.Open(path)
 	if err != nil {
 		fmt.Println(err)
 	}

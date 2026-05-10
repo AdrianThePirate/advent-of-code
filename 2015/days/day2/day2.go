@@ -6,7 +6,7 @@ import (
 	"github.com/AdrianThePirate/advent-of-code/pkg/input"
 )
 
-func Run() {
+func Run(variant string) {
 	list, err := input.FileToLines("2015/days/day2/day2.txt")
 	if err != nil {
 		fmt.Println(err)
