@@ -76,18 +76,6 @@ func (v1 Vec2[T]) DistanceTo(v2 Vec2[T]) float64 {
 	return math.Sqrt(float64(dist.Dot(dist)))
 }
 
-func (v1 Vec2[T]) Len(arg interface{}) float64 {
-	switch v2 := arg.(type) {
-	case nil:
-		return math.Sqrt(float64(v1.Dot(v1)))
-	case Vec2[T]:
-		vector := v2.Sub(v1)
-		return math.Sqrt(float64(vector.Dot(vector)))
-	default:
-		panic("unsupported type")
-	}
-}
-
 func (v1 Vec2[T]) Dot(v2 Vec2[T]) T {
 	return (v1.X * v2.X) + (v1.Y * v2.Y)
 }

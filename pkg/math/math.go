@@ -10,7 +10,7 @@ func Absolute(n int) int {
 }
 
 func GetDigitCount(n int) int {
-	Absolute(n)
+	n = Absolute(n)
 	if n == 0 {
 		return 1
 	}

@@ -21,7 +21,7 @@ func findAnt(antPos map[rune][]vector.Vec2[int], maxX, maxY int) map[vector.Vec2
 	for _, poss := range antPos {
 		for _, loc := range poss {
 			for _, pos := range poss {
-				if loc.Len(pos) == 0 {
+				if loc.DistanceTo(pos) == 0 {
 					continue
 				}
 				antPos := pos.Add(pos.Sub(loc))
@@ -39,7 +39,7 @@ func findAntReson(antPos map[rune][]vector.Vec2[int], maxX, maxY int) map[vector
 	for _, poss := range antPos {
 		for _, loc := range poss {
 			for _, pos := range poss {
-				if loc.Len(pos) == 0 {
+				if loc.DistanceTo(pos) == 0 {
 					continue
 				}
 				diff := pos.Sub(loc)
