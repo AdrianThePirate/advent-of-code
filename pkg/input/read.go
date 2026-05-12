@@ -1,4 +1,4 @@
-package input
+﻿package input
 
 import (
 	"bufio"
@@ -15,7 +15,7 @@ func FileToString(path string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(data), nil
+	return strings.TrimPrefix(strings.TrimSpace(string(data)), "\ufeff"), nil
 }
 
 func FileToLines(path string) ([]string, error) {

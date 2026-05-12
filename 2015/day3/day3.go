@@ -29,27 +29,14 @@ func allVisits(data []byte, robotMode bool) map[vector.Vec2[int]]int {
 	robotTurn := false
 	for _, r := range data {
 		if robotMode && robotTurn {
-			moveDir(r, &robot)
+			robot = robot.Direction(rune(r))
 			visited[robot]++
 			robotTurn = false
 		} else {
-			moveDir(r, &santa)
+			santa = santa.Direction(rune(r))
 			visited[santa]++
 			robotTurn = true
 		}
 	}
 	return visited
-}
-
-func moveDir(r byte, pos *vector.Vec2[int]) {
-	switch r {
-	case '^':
-		pos.Y -= 1
-	case 'v':
-		pos.Y += 1
-	case '<':
-		pos.X -= 1
-	case '>':
-		pos.X += 1
-	}
 }

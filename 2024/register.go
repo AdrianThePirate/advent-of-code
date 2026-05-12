@@ -1,4 +1,4 @@
-package year2024
+﻿package year2024
 
 import (
 	"github.com/AdrianThePirate/advent-of-code/pkg/registry"

@@ -115,22 +115,26 @@ func findEdges(visited []vector.Vec2[int]) int {
 		}
 
 		if upVisited && leftVisited {
-			if !slices.Contains(visited, val.Up().Left()) {
+			upLeft := val.Up()
+			if !slices.Contains(visited, upLeft.Left()) {
 				corners++
 			}
 		}
 		if upVisited && rightVisited {
-			if !slices.Contains(visited, val.Up().Right()) {
+			upRight := val.Up()
+			if !slices.Contains(visited, upRight.Right()) {
 				corners++
 			}
 		}
 		if downVisited && leftVisited {
-			if !slices.Contains(visited, val.Down().Left()) {
+			downLeft := val.Down()
+			if !slices.Contains(visited, downLeft.Left()) {
 				corners++
 			}
 		}
 		if downVisited && rightVisited {
-			if !slices.Contains(visited, val.Down().Right()) {
+			downRight := val.Down()
+			if !slices.Contains(visited, downRight.Right()) {
 				corners++
 			}
 		}
