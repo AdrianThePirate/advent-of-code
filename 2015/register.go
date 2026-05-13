@@ -9,6 +9,7 @@ import (
 	d4 "github.com/AdrianThePirate/advent-of-code/2015/day4"
 	d5 "github.com/AdrianThePirate/advent-of-code/2015/day5"
 	d6 "github.com/AdrianThePirate/advent-of-code/2015/day6"
+	d7 "github.com/AdrianThePirate/advent-of-code/2015/day7"
 )
 
 func init() {
@@ -18,4 +19,5 @@ func init() {
 	registry.Register(2015, 4, d4.Run)
 	registry.Register(2015, 5, d5.Run)
 	registry.Register(2015, 6, d6.Run)
+	registry.Register(2015, 7, d7.Run)
 }

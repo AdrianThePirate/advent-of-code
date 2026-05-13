@@ -53,7 +53,7 @@ Note my personal challenge data is not included in this repo, only the samples f
 |  4  |   🌟   |   🌟   |
 |  5  |   🌟   |   🌟   |
 |  6  |   🌟   |   🌟   |
-|  7  |        |        |
+|  7  |   🌟   |   🌟   |
 |  8  |        |        |
 |  9  |        |        |
 | 10  |        |        |
