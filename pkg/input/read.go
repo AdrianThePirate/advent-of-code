@@ -28,7 +28,7 @@ func FileToLines(path string) ([]string, error) {
 	var lines []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
+		lines = append(lines, strings.TrimPrefix(strings.TrimSpace(string(scanner.Text())), "\ufeff"))
 	}
 	return lines, nil
 }
